@@ -1,0 +1,61 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String                  @id @default(cuid())
+  email        String                  @unique
+  passwordHash String
+  createdAt    DateTime                @default(now())
+  progress     UserQuestionProgress[]
+}
+
+model Track {
+  id         String     @id @default(cuid())
+  slug       String     @unique
+  name       String
+  status     String
+  categories Category[]
+}
+
+model Category {
+  id               String     @id @default(cuid())
+  trackId          String
+  track            Track      @relation(fields: [trackId], references: [id])
+  slug             String
+  name             String
+  parentCategoryId String?
+  parent           Category?  @relation("CategoryToCategory", fields: [parentCategoryId], references: [id])
+  children         Category[] @relation("CategoryToCategory")
+  questions        Question[]
+
+  @@unique([trackId, slug])
+}
+
+model Question {
+  id          String                  @id @default(cuid())
+  categoryId  String
+  category    Category                @relation(fields: [categoryId], references: [id])
+  difficulty  String
+  prompt      String
+  modelAnswer String
+  progress    UserQuestionProgress[]
+}
+
+model UserQuestionProgress {
+  id         String   @id @default(cuid())
+  userId     String
+  user       User     @relation(fields: [userId], references: [id])
+  questionId String
+  question   Question @relation(fields: [questionId], references: [id])
+  status     String
+  timesSeen  Int      @default(0)
+  lastSeenAt DateTime @default(now())
+
+  @@unique([userId, questionId])
+}

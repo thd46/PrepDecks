@@ -1,0 +1,6 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 46, "column": 0}, "map": {"version":3,"sources":["file:///Users/taidang/Documents/GitHub/PrepDecks/src/components/AuthProvider.tsx"],"sourcesContent":["\"use client\";\n\nimport { SessionProvider } from \"next-auth/react\";\nimport type { ReactNode } from \"react\";\n\nexport function AuthProvider({ children }: { children: ReactNode }) {\n  return <SessionProvider>{children}</SessionProvider>;\n}\n"],"names":["AuthProvider","children"],"mappings":";;;;;AAEA;AAFA;;;AAKO,SAASA,aAAa,EAAEC,QAAQ,EAA2B;IAChE,qBAAO,8OAAC,iKAAe;kBAAEA;;;;;;AAC3B"}}]
+}
