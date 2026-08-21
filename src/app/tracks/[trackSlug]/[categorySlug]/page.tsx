@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
@@ -28,11 +29,16 @@ export default async function CategoryPracticePage({
   const session = await getServerSession(authOptions);
   const isAuthenticated = Boolean(session?.user?.id);
 
+  const visibleQuestions = isAuthenticated
+    ? category.questions
+    : category.questions.filter((q) => q.difficulty !== "advanced");
+  const lockedCount = category.questions.length - visibleQuestions.length;
+
   const existingProgress = isAuthenticated
     ? await prisma.userQuestionProgress.findMany({
         where: {
           userId: session!.user.id,
-          questionId: { in: category.questions.map((q) => q.id) },
+          questionId: { in: visibleQuestions.map((q) => q.id) },
         },
       })
     : [];
@@ -40,8 +46,32 @@ export default async function CategoryPracticePage({
   return (
     <main className="mx-auto max-w-2xl px-4 py-16">
       <h1 className="mb-6 text-2xl font-semibold">{category.name}</h1>
+
+      {lockedCount > 0 && (
+        <div className="mb-6 flex flex-wrap items-center justify-between gap-3 rounded border border-gray-200 bg-gray-50 px-4 py-3">
+          <p className="text-sm text-gray-700">
+            🔒 {lockedCount} advanced question{lockedCount === 1 ? "" : "s"} unlock with a free
+            account.
+          </p>
+          <div className="flex gap-2">
+            <Link
+              href="/signup"
+              className="rounded bg-black px-3 py-1.5 text-sm text-white"
+            >
+              Create free account
+            </Link>
+            <Link
+              href="/login"
+              className="rounded border border-black px-3 py-1.5 text-sm"
+            >
+              Log in
+            </Link>
+          </div>
+        </div>
+      )}
+
       <FlashcardSession
-        questions={category.questions.map((q) => ({
+        questions={visibleQuestions.map((q) => ({
           id: q.id,
           prompt: q.prompt,
           modelAnswer: q.modelAnswer,
