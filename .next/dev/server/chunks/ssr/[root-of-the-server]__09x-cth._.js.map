@@ -1,7 +1,0 @@
-{
-  "version": 3,
-  "sources": [],
-  "sections": [
-    {"offset": {"line": 13, "column": 0}, "map": {"version":3,"sources":["file:///Users/taidang/Documents/GitHub/PrepDecks/src/app/favicon.ico.mjs%20(structured%20image%20object)"],"sourcesContent":["import src from \"IMAGE\";\nexport default { src, width: 256, height: 256 }\n"],"names":["src","width","height"],"mappings":";;;;AAAA;;uCACe;IAAEA,KAAAA,0IAAG;IAAEC,OAAO;IAAKC,QAAQ;AAAI"}},
-    {"offset": {"line": 28, "column": 0}, "map": {"version":3,"sources":["file:///Users/taidang/Documents/GitHub/PrepDecks/src/app/page.tsx"],"sourcesContent":["import Link from \"next/link\";\n\nexport default function LandingPage() {\n  return (\n    <main className=\"flex min-h-screen items-center justify-center\">\n      <Link\n        href=\"/tracks\"\n        className=\"text-5xl font-bold tracking-tight sm:text-7xl\"\n      >\n        WHO ARE YOU?\n      </Link>\n    </main>\n  );\n}\n"],"names":["LandingPage","className","href"],"mappings":";;;;;AAAA;;;AAEe,SAASA;IACtB,qBACE,8OAAC;QAAKC,WAAU;kBACd,cAAA,8OAAC,0LAAI;YACHC,MAAK;YACLD,WAAU;sBACX;;;;;;;;;;;AAKP"}}]
-}
