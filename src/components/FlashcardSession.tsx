@@ -92,7 +92,7 @@ export function FlashcardSession({
         Question {index + 1} of {questions.length}
       </p>
       <div className="rounded-lg border border-gray-200 p-6">
-        <p className="text-lg">{question.prompt}</p>
+        <p className="text-lg dark:text-white">{question.prompt}</p>
 
         {revealed ? (
           <p className="mt-4 border-t border-gray-100 pt-4 text-gray-700 dark:text-white">
