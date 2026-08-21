@@ -1,16 +1,10 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
 import { useSession, signOut } from "next-auth/react";
 
 export function SiteHeader() {
   const { data: session, status } = useSession();
-  const pathname = usePathname();
-
-  if (pathname === "/") {
-    return null;
-  }
 
   return (
     <header className="flex items-center justify-between border-b border-gray-200 px-4 py-3 sm:px-6">
