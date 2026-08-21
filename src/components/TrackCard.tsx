@@ -24,7 +24,7 @@ export function TrackCard({ slug, name, status }: TrackCardProps) {
       className="rounded-lg border border-gray-200 p-5 transition hover:border-black"
     >
       <h3 className="text-lg font-semibold">{name}</h3>
-      <span className="mt-2 inline-block text-sm text-gray-600">Start practicing →</span>
+      <span className="mt-2 inline-block text-sm text-gray-600 dark:text-white">Start practicing →</span>
     </Link>
   );
 }
