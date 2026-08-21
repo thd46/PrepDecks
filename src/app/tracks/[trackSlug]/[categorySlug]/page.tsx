@@ -45,6 +45,12 @@ export default async function CategoryPracticePage({
 
   return (
     <main className="mx-auto max-w-2xl px-4 py-16">
+      <Link
+        href={`/tracks/${track.slug}`}
+        className="mb-4 inline-block text-sm text-gray-500 hover:text-black dark:text-white"
+      >
+        ← Back to categories
+      </Link>
       <h1 className="mb-6 text-2xl font-semibold">{category.name}</h1>
 
       {lockedCount > 0 && (
@@ -62,7 +68,7 @@ export default async function CategoryPracticePage({
             </Link>
             <Link
               href="/login"
-              className="rounded border border-black px-3 py-1.5 text-sm"
+              className="rounded bg-black px-3 py-1.5 text-sm text-white"
             >
               Log in
             </Link>
