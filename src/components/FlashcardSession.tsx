@@ -16,6 +16,7 @@ export function FlashcardSession({
 }) {
   const [index, setIndex] = useState(0);
   const [revealed, setRevealed] = useState(false);
+  const [writtenAnswer, setWrittenAnswer] = useState("");
   const [progress, setProgress] = useState<Record<string, Status>>(
     Object.fromEntries(initialProgress.map((p) => [p.questionId, p.status]))
   );
@@ -40,6 +41,7 @@ export function FlashcardSession({
           onClick={() => {
             setIndex(0);
             setRevealed(false);
+            setWrittenAnswer("");
           }}
           className="mt-4 rounded bg-black px-4 py-2 text-white"
         >
@@ -57,6 +59,7 @@ export function FlashcardSession({
 
     if (!isAuthenticated) {
       setRevealed(false);
+      setWrittenAnswer("");
       setIndex((i) => i + 1);
       return;
     }
@@ -83,6 +86,7 @@ export function FlashcardSession({
 
     setSaving(false);
     setRevealed(false);
+    setWrittenAnswer("");
     setIndex((i) => i + 1);
   }
 
@@ -94,6 +98,15 @@ export function FlashcardSession({
       <div className="rounded-lg border border-gray-200 p-6">
         <p className="text-lg dark:text-white">{question.prompt}</p>
 
+        <textarea
+          value={writtenAnswer}
+          onChange={(e) => setWrittenAnswer(e.target.value)}
+          disabled={revealed}
+          placeholder="Type your answer..."
+          rows={4}
+          className="mt-4 w-full rounded border border-gray-300 p-3 disabled:opacity-70 dark:text-white"
+        />
+
         {revealed ? (
           <p className="mt-4 border-t border-gray-100 pt-4 text-gray-700 dark:text-white">
             {question.modelAnswer}
@@ -101,9 +114,10 @@ export function FlashcardSession({
         ) : (
           <button
             onClick={() => setRevealed(true)}
-            className="mt-4 rounded border border-black px-4 py-2"
+            disabled={writtenAnswer.trim().length === 0}
+            className="mt-4 rounded border border-black px-4 py-2 disabled:opacity-50"
           >
-            Show answer
+            Submit &amp; show answer
           </button>
         )}
       </div>
